@@ -1,0 +1,6 @@
+﻿Copyright © 2018 chibayuki@foxmail.com
+
+乘方计算器 (PowerCalculator)
+Version 18.8.12.0000
+
+"乘方计算器" (PowerCalculator) is released under the GPLv3 license, see GPLv3.txt for more information.
