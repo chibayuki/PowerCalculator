@@ -209,6 +209,10 @@ namespace WinFormApp
 
             ContextMenuStrip_Output.BackColor = Me.RecommendColors.MenuItemBackground.ToColor();
             ToolStripMenuItem_Output_Copy.ForeColor = Me.RecommendColors.MenuItemText.ToColor();
+
+            //
+
+            Com.WinForm.ControlSubstitution.LabelAsButton(Label_ReturnToZero, Label_ReturnToZero_Click, Me.RecommendColors.Background_DEC.ToColor(), PointedColor, FocusedColor);
         }
 
         #endregion
@@ -858,6 +862,7 @@ namespace WinFormApp
             {
                 return _CycDone;
             }
+
             set
             {
                 _CycDone = Math.Max(0, Math.Min(value, CycSteps));
@@ -972,14 +977,14 @@ namespace WinFormApp
 
             if (BackgroundWorker_Calc != null)
             {
+                BackgroundWorker_Calc.DoWork -= BackgroundWorker_Calc_DoWork;
+                BackgroundWorker_Calc.ProgressChanged -= BackgroundWorker_Calc_ProgressChanged;
+                BackgroundWorker_Calc.RunWorkerCompleted -= BackgroundWorker_Calc_RunWorkerCompleted;
+
                 if (BackgroundWorker_Calc.IsBusy)
                 {
                     BackgroundWorker_Calc.CancelAsync();
                 }
-
-                BackgroundWorker_Calc.DoWork -= BackgroundWorker_Calc_DoWork;
-                BackgroundWorker_Calc.ProgressChanged -= BackgroundWorker_Calc_ProgressChanged;
-                BackgroundWorker_Calc.RunWorkerCompleted -= BackgroundWorker_Calc_RunWorkerCompleted;
 
                 BackgroundWorker_Calc.Dispose();
             }
@@ -1090,55 +1095,13 @@ namespace WinFormApp
             Label_Base.Focus();
         }
 
-        private void Label_ReturnToZero_MouseEnter(object sender, EventArgs e)
+        private void Label_ReturnToZero_Click(object sender, EventArgs e)
         {
             //
-            // 鼠标经过 Label_ReturnToZero。
+            // 单击 Label_ReturnToZero。
             //
 
-            Label_ReturnToZero.BackColor = PointedColor;
-        }
-
-        private void Label_ReturnToZero_MouseLeave(object sender, EventArgs e)
-        {
-            //
-            // 鼠标离开 Label_ReturnToZero。
-            //
-
-            Label_ReturnToZero.BackColor = Me.RecommendColors.Background_DEC.ToColor();
-        }
-
-        private void Label_ReturnToZero_MouseDown(object sender, MouseEventArgs e)
-        {
-            //
-            // 鼠标按下 Label_ReturnToZero。
-            //
-
-            if (e.Button == MouseButtons.Left)
-            {
-                Label_ReturnToZero.BackColor = FocusedColor;
-            }
-        }
-
-        private void Label_ReturnToZero_MouseUp(object sender, MouseEventArgs e)
-        {
-            //
-            // 鼠标释放 Label_ReturnToZero。
-            //
-
-            Label_ReturnToZero.BackColor = PointedColor;
-        }
-
-        private void Label_ReturnToZero_MouseClick(object sender, MouseEventArgs e)
-        {
-            //
-            // 鼠标单击 Label_ReturnToZero。
-            //
-
-            if (e.Button == MouseButtons.Left)
-            {
-                ReturnToZero();
-            }
+            ReturnToZero();
         }
 
         // 输入合法性。
